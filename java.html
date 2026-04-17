@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>☕ Roadmap Completo · Java</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #faf5f0 0%, #f5ebe0 100%);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .header h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #2c1e16;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .header h1 i {
+      color: #ED8B00;
+      font-size: 3rem;
+      filter: drop-shadow(0 4px 6px rgba(237,139,0,0.25));
+    }
+
+    .badge-java {
+      background: #ED8B00;
+      color: white;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .sub {
+      color: #5c3e2e;
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 400;
+      border-bottom: 2px dashed #d4b8a8;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    .roadmap-wrapper {
+      max-width: 1400px;
+      width: 100%;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 25px 40px -12px rgba(80,50,30,0.2), 0 8px 18px rgba(0,0,0,0.05);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid #e8d5c8;
+      padding-bottom: 8px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.9rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 60px;
+      color: #5a3e2e;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .tab-btn i {
+      font-size: 1.3rem;
+      opacity: 0.8;
+    }
+
+    .tab-btn:hover {
+      background: rgba(237,139,0,0.12);
+      color: #b85e00;
+    }
+
+    .tab-btn.active {
+      background: #ED8B00;
+      color: white;
+      box-shadow: 0 10px 18px -8px #ED8B00;
+    }
+
+    .tab-btn.active i {
+      opacity: 1;
+      color: white;
+    }
+
+    .tab-panel {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .tab-panel.active {
+      display: block;
+      opacity: 1;
+    }
+
+    .roadmap-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .roadmap-section {
+      background: white;
+      border-radius: 32px;
+      padding: 1.5rem 1.8rem;
+      box-shadow: 0 6px 14px rgba(80,50,30,0.05);
+      border: 1px solid #f0e3d9;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 1.8rem;
+      font-weight: 700;
+      font-size: 1.7rem;
+      color: #3b2a1e;
+    }
+
+    .section-title i {
+      background: #fae5d4;
+      padding: 12px;
+      border-radius: 18px;
+      color: #c46b1e;
+      font-size: 1.4rem;
+    }
+
+    .topics-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem 1.5rem;
+    }
+
+    .topic-card {
+      background: #fefcf9;
+      border-radius: 22px;
+      padding: 1rem 1.5rem;
+      border-left: 6px solid;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      transition: transform 0.1s ease;
+      border: 1px solid #f5ede6;
+      border-left-width: 6px;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-2px);
+      background: white;
+      box-shadow: 0 12px 20px -10px rgba(237,139,0,0.15);
+    }
+
+    .topic-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topic-title i {
+      font-size: 1.1rem;
+      width: 1.6rem;
+      color: #a0581a;
+    }
+
+    .topic-desc {
+      color: #5e4534;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-left: 2.2rem;
+    }
+
+    .topic-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0 0 2.2rem;
+    }
+
+    .tag {
+      background: #f0ddd0;
+      color: #5a3a24;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 30px;
+      letter-spacing: 0.2px;
+    }
+
+    .level-basic .topic-card { border-left-color: #4CAF50; }
+    .level-inter .topic-card { border-left-color: #FF9800; }
+    .level-adv .topic-card { border-left-color: #F44336; }
+    .level-expert .topic-card { border-left-color: #9C27B0; }
+
+    .footer-note {
+      margin-top: 2.2rem;
+      text-align: center;
+      color: #6b4e3a;
+      font-weight: 500;
+    }
+
+    .footer-note i {
+      color: #ED8B00;
+      margin: 0 4px;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 1.2rem 0.8rem; }
+      .header h1 { font-size: 2.2rem; }
+      .tab-btn { padding: 0.7rem 1.2rem; font-size: 1rem; }
+      .section-title { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <h1>
+    <i class="fab fa-java"></i> Java · Roadmap Completo
+    <span class="badge-java">do zero ao especialista</span>
+  </h1>
+  <div class="sub">Domine a plataforma Java — navegue pelas abas ☕</div>
+</div>
+
+<div class="roadmap-wrapper">
+  <div class="tabs-nav">
+    <button class="tab-btn active" data-tab="basico"><i class="fas fa-seedling"></i> Básico</button>
+    <button class="tab-btn" data-tab="medio"><i class="fas fa-code-branch"></i> Médio</button>
+    <button class="tab-btn" data-tab="avancado"><i class="fas fa-rocket"></i> Avançado</button>
+    <button class="tab-btn" data-tab="especialista"><i class="fas fa-crown"></i> Especialista</button>
+  </div>
+
+  <!-- PAINEL BÁSICO -->
+  <div id="basico" class="tab-panel active level-basic">
+    <div class="roadmap-grid">
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-flag-checkered"></i> Fundamentos da Linguagem</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-download"></i> Instalação e JDK</div><div class="topic-desc">JVM, JRE, JDK, configuração JAVA_HOME.</div><div class="topic-tags"><span class="tag">javac</span><span class="tag">java</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-code"></i> Estrutura básica</div><div class="topic-desc">Classe main, System.out, comentários.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-cube"></i> Variáveis e tipos</div><div class="topic-desc">Primitivos (int, double, boolean), String, var.</div><div class="topic-tags"><span class="tag">wrapper</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-calculator"></i> Operadores</div><div class="topic-desc">Aritméticos, relacionais, lógicos, ternário.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-code-branch"></i> Controle de fluxo</div><div class="topic-desc">if/else, switch (tradicional e expressão), while, for.</div><div class="topic-tags"><span class="tag">enhanced for</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-layer-group"></i> Arrays</div><div class="topic-desc">Declaração, inicialização, foreach, multidimensional.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-cogs"></i> Métodos</div><div class="topic-desc">Assinatura, parâmetros, retorno, sobrecarga.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-box"></i> Classes e Objetos</div><div class="topic-desc">Atributos, construtores, this, instanciação.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-shield-alt"></i> Encapsulamento</div><div class="topic-desc">private, getters/setters, packages.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-book"></i> Strings e StringBuilder</div><div class="topic-desc">Manipulação, imutabilidade, concatenação eficiente.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-toolbox"></i> Ferramentas e IDEs</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-laptop-code"></i> IntelliJ / Eclipse / VSCode</div><div class="topic-desc">Configuração, atalhos, debug básico.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-exclamation-triangle"></i> Tratamento de exceções</div><div class="topic-desc">try-catch-finally, checked vs unchecked.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-file-code"></i> Javadoc</div><div class="topic-desc">Comentários de documentação, @param, @return.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL MÉDIO -->
+  <div id="medio" class="tab-panel level-inter">
+    <div class="roadmap-grid">
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-puzzle-piece"></i> Orientação a Objetos Avançada</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-arrow-up"></i> Herança</div><div class="topic-desc">extends, super, sobrescrita (@Override).</div><div class="topic-tags"><span class="tag">Object</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-shapes"></i> Polimorfismo</div><div class="topic-desc">Sobrescrita, sobrecarga, casting de objetos.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-ban"></i> Classes Abstratas</div><div class="topic-desc">abstract class, métodos abstratos.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-handshake"></i> Interfaces</div><div class="topic-desc">default methods, funcional, múltiplas.</div><div class="topic-tags"><span class="tag">implements</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-globe"></i> Modificadores de acesso</div><div class="topic-desc">public, protected, default, private.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-fan"></i> static e final</div><div class="topic-desc">Membros de classe, constantes, imutabilidade.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-database"></i> Estruturas de Dados e Coleções</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-list"></i> List, ArrayList, LinkedList</div><div class="topic-desc">Ordenação, iteração, métodos principais.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-vector-square"></i> Set (HashSet, TreeSet)</div><div class="topic-desc">Elementos únicos, equals/hashCode.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-map"></i> Map (HashMap, TreeMap)</div><div class="topic-desc">Chave-valor, métodos principais.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-sort"></i> Generics</div><div class="topic-desc">Type safety, diamond operator.</div><div class="topic-tags"><span class="tag"><></span></div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-code"></i> Programação Funcional (básico)</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-lambda"></i> Expressões Lambda</div><div class="topic-desc">Sintaxe ->, interfaces funcionais.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-stream"></i> Stream API (básica)</div><div class="topic-desc">filter, map, collect, forEach.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-clock"></i> Optional</div><div class="topic-desc">Evitar NullPointerException.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL AVANÇADO -->
+  <div id="avancado" class="tab-panel level-adv">
+    <div class="roadmap-grid">
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-microchip"></i> Concorrência e Multithreading</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-tasks"></i> Threads e Runnable</div><div class="topic-desc">Criação, start, sleep, join.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-sync-alt"></i> synchronized</div><div class="topic-desc">Métodos e blocos sincronizados.</div><div class="topic-tags"><span class="tag">monitor</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-hourglass-half"></i> java.util.concurrent</div><div class="topic-desc">ExecutorService, Future, Callable.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-lock"></i> Locks e Atomic</div><div class="topic-desc">ReentrantLock, AtomicInteger.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-exchange-alt"></i> CompletableFuture</div><div class="topic-desc">Programação assíncrona, thenApply, combine.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-layer-group"></i> Fork/Join Pool</div><div class="topic-desc">RecursiveTask, divide and conquer.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-network-wired"></i> Desenvolvimento Web e APIs</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-leaf"></i> Spring Boot</div><div class="topic-desc">REST APIs, @RestController, CRUD.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-database"></i> Spring Data JPA</div><div class="topic-desc">Repositories, Hibernate, consultas.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-shield-alt"></i> Spring Security</div><div class="topic-desc">Autenticação, JWT, autorização.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-exchange-alt"></i> REST Clients</div><div class="topic-desc">RestTemplate, WebClient.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-vial"></i> Testes e Qualidade</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-check-circle"></i> JUnit 5</div><div class="topic-desc">@Test, assertions, lifecycle.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-ghost"></i> Mockito</div><div class="topic-desc">Mocks, when/thenReturn, verify.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-chart-line"></i> Testes de Integração</div><div class="topic-desc">@SpringBootTest, Testcontainers.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL ESPECIALISTA -->
+  <div id="especialista" class="tab-panel level-expert">
+    <div class="roadmap-grid">
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-crown"></i> Domínio Profundo da JVM</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-microscope"></i> JVM Internals</div><div class="topic-desc">ClassLoader, JIT, GC algorithms (G1, ZGC).</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-chart-pie"></i> Memory Management</div><div class="topic-desc">Heap, Stack, Metaspace, memory leaks.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-tachometer-alt"></i> Profiling e Tuning</div><div class="topic-desc">JFR, JMC, VisualVM, flags JVM.</div><div class="topic-tags"><span class="tag">-Xmx</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-code"></i> Bytecode e ASM</div><div class="topic-desc">Manipulação de bytecode, agents.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-arrows-alt"></i> Arquitetura e Padrões Avançados</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-project-diagram"></i> Microservices</div><div class="topic-desc">Spring Cloud, service discovery, config server.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-stream"></i> Mensageria</div><div class="topic-desc">Kafka, RabbitMQ, Spring Cloud Stream.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-chart-network"></i> Reactive Programming</div><div class="topic-desc">Project Reactor, WebFlux, R2DBC.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-cloud"></i> Cloud Native</div><div class="topic-desc">Docker, Kubernetes, GraalVM Native Image.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-arrows-spin"></i> Design Patterns (GoF)</div><div class="topic-desc">Singleton, Factory, Builder, Observer, etc.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-shield-virus"></i> Segurança e Performance</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-shield"></i> OWASP e boas práticas</div><div class="topic-desc">Injection, XSS, CSRF, CORS seguro.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-bug"></i> Debugging avançado</div><div class="topic-desc">Remote debugging, heap dumps, thread dumps.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-chart-bar"></i> Benchmarks (JMH)</div><div class="topic-desc">Microbenchmarking, evitar otimizações prematuras.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-lock"></i> Cryptography (JCA)</div><div class="topic-desc">Cipher, KeyStore, assinatura digital.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-note">
+    <i class="fas fa-chevron-circle-right"></i> Roadmap progressivo — do básico ao especialista em Java <i class="fas fa-chevron-circle-left"></i>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = {
+      basico: document.getElementById('basico'),
+      medio: document.getElementById('medio'),
+      avancado: document.getElementById('avancado'),
+      especialista: document.getElementById('especialista')
+    };
+
+    function activateTab(tabId) {
+      tabs.forEach(btn => btn.classList.remove('active'));
+      Object.values(panels).forEach(panel => panel.classList.remove('active'));
+
+      const activeButton = Array.from(tabs).find(btn => btn.dataset.tab === tabId);
+      if (activeButton) activeButton.classList.add('active');
+      if (panels[tabId]) panels[tabId].classList.add('active');
+    }
+
+    tabs.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tabId = btn.dataset.tab;
+        if (tabId) activateTab(tabId);
+      });
+    });
+
+    if (window.location.hash) {
+      const hash = window.location.hash.substring(1);
+      if (panels[hash]) activateTab(hash);
+    } else {
+      activateTab('basico');
+    }
+  })();
+</script>
+</body>
+</html>
