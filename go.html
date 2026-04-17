@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐹 Roadmap Completo · Golang</title>
+  <!-- Font Awesome para ícones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(145deg, #f6f9fc 0%, #e9f2f9 100%);
+      min-height: 100vh;
+      padding: 2rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .header h1 {
+      font-size: 3.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #0d2b3e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .header h1 i {
+      color: #00ADD8;
+      font-size: 3rem;
+      filter: drop-shadow(0 4px 6px rgba(0,173,216,0.25));
+    }
+
+    .badge-go {
+      background: #00ADD8;
+      color: white;
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 500;
+      margin-left: 10px;
+      vertical-align: middle;
+    }
+
+    .sub {
+      color: #2c5778;
+      margin-top: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 400;
+      border-bottom: 2px dashed #b0d4e9;
+      display: inline-block;
+      padding-bottom: 6px;
+    }
+
+    /* container das abas */
+    .roadmap-wrapper {
+      max-width: 1400px;
+      width: 100%;
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 48px;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 25px 40px -12px rgba(0,20,40,0.25), 0 8px 18px rgba(0,0,0,0.05);
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+
+    /* navegação tabs */
+    .tabs-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 2.5rem;
+      border-bottom: 2px solid #d7e5ef;
+      padding-bottom: 8px;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.9rem 2rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 60px;
+      color: #1e4a6b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s ease;
+      backdrop-filter: blur(4px);
+    }
+
+    .tab-btn i {
+      font-size: 1.3rem;
+      opacity: 0.8;
+    }
+
+    .tab-btn:hover {
+      background: rgba(0,173,216,0.12);
+      color: #005f87;
+    }
+
+    .tab-btn.active {
+      background: #00ADD8;
+      color: white;
+      box-shadow: 0 10px 18px -8px #00ADD8;
+    }
+
+    .tab-btn.active i {
+      opacity: 1;
+      color: white;
+    }
+
+    /* painéis de conteúdo */
+    .tab-panel {
+      display: none;
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
+
+    .tab-panel.active {
+      display: block;
+      opacity: 1;
+    }
+
+    /* layout do roadmap */
+    .roadmap-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+    }
+
+    .roadmap-section {
+      background: white;
+      border-radius: 32px;
+      padding: 1.5rem 1.8rem;
+      box-shadow: 0 6px 14px rgba(0,20,30,0.05);
+      border: 1px solid #e3edf5;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 1.8rem;
+      font-weight: 700;
+      font-size: 1.7rem;
+      color: #0c3348;
+    }
+
+    .section-title i {
+      background: #e1f2fa;
+      padding: 12px;
+      border-radius: 18px;
+      color: #007a9e;
+      font-size: 1.4rem;
+    }
+
+    .topics-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1rem 1.5rem;
+    }
+
+    .topic-card {
+      background: #fafdff;
+      border-radius: 22px;
+      padding: 1rem 1.5rem;
+      border-left: 6px solid;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      transition: transform 0.1s ease;
+      border: 1px solid #eef4f9;
+      border-left-width: 6px;
+    }
+
+    .topic-card:hover {
+      transform: translateY(-2px);
+      background: white;
+      box-shadow: 0 12px 20px -10px rgba(0,130,180,0.1);
+    }
+
+    .topic-title {
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .topic-title i {
+      font-size: 1.1rem;
+      width: 1.6rem;
+      color: #2e6a8e;
+    }
+
+    .topic-desc {
+      color: #305e77;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      margin-left: 2.2rem;
+    }
+
+    .topic-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 10px 0 0 2.2rem;
+    }
+
+    .tag {
+      background: #deecf5;
+      color: #0e405b;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 30px;
+      letter-spacing: 0.2px;
+    }
+
+    /* cores por nível (borda esquerda) */
+    .level-basic .topic-card { border-left-color: #2ecc71; }
+    .level-inter .topic-card { border-left-color: #f39c12; }
+    .level-adv .topic-card { border-left-color: #e67e22; }
+    .level-expert .topic-card { border-left-color: #c44536; }
+
+    .footer-note {
+      margin-top: 2.2rem;
+      text-align: center;
+      color: #3c6e8c;
+      font-weight: 500;
+    }
+
+    .footer-note i {
+      color: #00ADD8;
+      margin: 0 4px;
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 1.2rem 0.8rem; }
+      .header h1 { font-size: 2.2rem; }
+      .tab-btn { padding: 0.7rem 1.2rem; font-size: 1rem; }
+      .section-title { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <h1>
+    <i class="fab fa-golang"></i> Go · Roadmap Completo
+    <span class="badge-go">do zero ao especialista</span>
+  </h1>
+  <div class="sub">Navegue pelas abas — organize seu aprendizado 🗺️</div>
+</div>
+
+<div class="roadmap-wrapper">
+  <!-- abas -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" data-tab="basico"><i class="fas fa-seedling"></i> Básico</button>
+    <button class="tab-btn" data-tab="medio"><i class="fas fa-code-branch"></i> Médio</button>
+    <button class="tab-btn" data-tab="avancado"><i class="fas fa-rocket"></i> Avançado</button>
+    <button class="tab-btn" data-tab="especialista"><i class="fas fa-crown"></i> Especialista</button>
+  </div>
+
+  <!-- PAINEL BÁSICO -->
+  <div id="basico" class="tab-panel active level-basic">
+    <div class="roadmap-grid">
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-flag-checkered"></i> Fundamentos & Sintaxe</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-play"></i> Instalação e GOPATH</div><div class="topic-desc">Configurar ambiente, go mod, workspace.</div><div class="topic-tags"><span class="tag">go version</span><span class="tag">GOROOT</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-code"></i> Estrutura de programa</div><div class="topic-desc">package main, func main, import, comentários.</div><div class="topic-tags"><span class="tag">fmt.Println</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-cube"></i> Variáveis e tipos</div><div class="topic-desc">int, float, string, bool, declaração curta :=</div><div class="topic-tags"><span class="tag">zero values</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-calculator"></i> Operadores e conversão</div><div class="topic-desc">Aritméticos, relacionais, lógicos, type casting.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-redo-alt"></i> Loops e condicionais</div><div class="topic-desc">for (único loop), if/else, switch (com e sem expressão).</div><div class="topic-tags"><span class="tag">fallthrough</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-layer-group"></i> Arrays e Slices</div><div class="topic-desc">Declaração, make, append, copy, slice internals.</div><div class="topic-tags"><span class="tag">len/cap</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-map"></i> Maps</div><div class="topic-desc">Criação, inserção, delete, verificação de existência.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-cogs"></i> Funções</div><div class="topic-desc">Parâmetros, retorno único/múltiplo, named returns.</div><div class="topic-tags"><span class="tag">defer</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-box"></i> Structs básicas</div><div class="topic-desc">Definição, inicialização, acesso a campos.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-directions"></i> Ponteiros (introdução)</div><div class="topic-desc">&, *, passagem por valor vs referência.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-toolbox"></i> Ferramentas e boas práticas</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-terminal"></i> Comandos go</div><div class="topic-desc">go run, go build, go fmt, go mod init/tidy.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-robot"></i> Tratamento de erros</div><div class="topic-desc">error interface, if err != nil, fmt.Errorf.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-book"></i> Documentação</div><div class="topic-desc">go doc, comentários para godoc.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL MÉDIO -->
+  <div id="medio" class="tab-panel level-inter">
+    <div class="roadmap-grid">
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-puzzle-piece"></i> Estruturas e interfaces</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-cubes"></i> Structs avançadas</div><div class="topic-desc">Composição (embedding), tags de struct (json).</div><div class="topic-tags"><span class="tag">embedded</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-handshake"></i> Interfaces</div><div class="topic-desc">Definição implícita, interface{}, type assertion.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-arrows-alt"></i> Ponteiros e métodos</div><div class="topic-desc">Receptores valor vs ponteiro, quando usar.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-hourglass-half"></i> Pacotes e visibilidade</div><div class="topic-desc">Exportado (maiúscula), organização de módulos.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-exchange-alt"></i> Concorrência (primeiros passos)</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-tasks"></i> Goroutines</div><div class="topic-desc">go func(), execução concorrente leve.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-inbox"></i> Channels básicos</div><div class="topic-desc">make(chan type), send/receive, buffered.</div><div class="topic-tags"><span class="tag">bloqueio</span></div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-lock"></i> sync.WaitGroup</div><div class="topic-desc">Add, Done, Wait para sincronização.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-shield-alt"></i> Mutex (sync.Mutex)</div><div class="topic-desc">Lock/Unlock, evitar race conditions.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-database"></i> Manipulação de dados e I/O</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-file-alt"></i> Leitura/escrita de arquivos</div><div class="topic-desc">os.Open, os.Create, bufio, ioutil.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-code-branch"></i> encoding/json</div><div class="topic-desc">Marshal/Unmarshal, struct tags.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-clock"></i> time</div><div class="topic-desc">Parsing, formatação, durações, tickers.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-plug"></i> Context (introdução)</div><div class="topic-desc">context.Background, cancelamento, timeout.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL AVANÇADO -->
+  <div id="avancado" class="tab-panel level-adv">
+    <div class="roadmap-grid">
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-microchip"></i> Concorrência avançada</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-code-branch"></i> Select e canais</div><div class="topic-desc">multiplexação, default, time.After.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-stop-circle"></i> Context avançado</div><div class="topic-desc">WithCancel, WithDeadline, WithValue.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-sync-alt"></i> Padrões de concorrência</div><div class="topic-desc">Worker pools, fan-in, fan-out, pipeline.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-balance-scale"></i> sync/atomic</div><div class="topic-desc">Operações atômicas, contadores seguros.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-network-wired"></i> Redes, Web e APIs</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-server"></i> net/http servidor</div><div class="topic-desc">Handlers, ServeMux, middlewares.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-cloud-upload-alt"></i> Cliente HTTP</div><div class="topic-desc">http.Get, http.Client, timeouts.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-route"></i> Roteadores (gorilla/mux, chi)</div><div class="topic-desc">Parâmetros de rota, grupos.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-database"></i> Bancos de dados</div><div class="topic-desc">database/sql, drivers (pgx, mysql), conexões.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-key"></i> Autenticação JWT</div><div class="topic-desc">Geração e validação de tokens.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-vial"></i> Testes e profiling</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-check-circle"></i> Testes unitários</div><div class="topic-desc">go test, testes de tabela, testify.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-chart-line"></i> Benchmarks</div><div class="topic-desc">func Benchmark*, go test -bench.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-chart-bar"></i> Profiling (pprof)</div><div class="topic-desc">CPU, memória, análise de goroutines.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAINEL ESPECIALISTA -->
+  <div id="especialista" class="tab-panel level-expert">
+    <div class="roadmap-grid">
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-crown"></i> Domínio profundo da linguagem</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-microscope"></i> Go Internals</div><div class="topic-desc">Garbage Collector, escalonador, pilha.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-memory"></i> unsafe e cgo</div><div class="topic-desc">Ponteiros inseguros, chamadas C.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-cog"></i> Compilação cruzada</div><div class="topic-desc">GOOS, GOARCH, build tags.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-code"></i> Generics (Go 1.18+)</div><div class="topic-desc">Type parameters, constraints, conjuntos.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-arrows-alt"></i> Arquitetura e padrões avançados</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-project-diagram"></i> Microservices</div><div class="topic-desc">gRPC, protocol buffers, service discovery.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-stream"></i> Event-driven e message brokers</div><div class="topic-desc">NATS, Kafka, RabbitMQ com Go.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-tachometer-alt"></i> Otimização de performance</div><div class="topic-desc">Alocação zero, pool de objetos (sync.Pool).</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-cloud"></i> Cloud Native</div><div class="topic-desc">Kubernetes operators, Docker, serverless.</div></div>
+        </div>
+      </div>
+      <div class="roadmap-section">
+        <div class="section-title"><i class="fas fa-shield-virus"></i> Segurança e confiabilidade</div>
+        <div class="topics-container">
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-exclamation-triangle"></i> Análise estática</div><div class="topic-desc">go vet, staticcheck, golangci-lint.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-bug"></i> Debugging avançado</div><div class="topic-desc">Delve, core dumps, race detector.</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-fingerprint"></i> Fuzzing</div><div class="topic-desc">go test -fuzz (nativo desde 1.18).</div></div>
+          <div class="topic-card"><div class="topic-title"><i class="fas fa-lock"></i> Supply chain security</div><div class="topic-desc">go mod verify, checksum database.</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-note">
+    <i class="fas fa-chevron-circle-right"></i> Explore cada aba — o roadmap foi pensado para evoluir do básico ao especialista. <i class="fas fa-chevron-circle-left"></i>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = {
+      basico: document.getElementById('basico'),
+      medio: document.getElementById('medio'),
+      avancado: document.getElementById('avancado'),
+      especialista: document.getElementById('especialista')
+    };
+
+    function activateTab(tabId) {
+      // Remove active de todos os botões e painéis
+      tabs.forEach(btn => btn.classList.remove('active'));
+      Object.values(panels).forEach(panel => panel.classList.remove('active'));
+
+      // Ativa o botão correspondente e painel
+      const activeButton = Array.from(tabs).find(btn => btn.dataset.tab === tabId);
+      if (activeButton) activeButton.classList.add('active');
+      if (panels[tabId]) panels[tabId].classList.add('active');
+    }
+
+    // Adiciona evento de clique nas abas
+    tabs.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const tabId = btn.dataset.tab;
+        if (tabId) activateTab(tabId);
+      });
+    });
+
+    // Se houver hash na URL, ativa aba correspondente (opcional)
+    if (window.location.hash) {
+      const hash = window.location.hash.substring(1); // remove #
+      if (panels[hash]) activateTab(hash);
+    } else {
+      // garante que básico fique ativo por padrão (já está, mas reforça)
+      activateTab('basico');
+    }
+  })();
+</script>
+
+<!-- pequena descrição extra flutuante (opcional) -->
+</body>
+</html>
