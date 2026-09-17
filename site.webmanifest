@@ -1,0 +1,19 @@
+{
+  "name": "Fogo de Oferta",
+  "short_name": "Fogo de Oferta",
+  "description": "Ofertas locais para quem compra e inteligência para quem vende.",
+  "lang": "pt-BR",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#100403",
+  "theme_color": "#ff6816",
+  "icons": [
+    {
+      "src": "assets/logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

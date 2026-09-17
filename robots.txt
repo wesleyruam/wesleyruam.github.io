@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wesleyruam.github.io/fogo-de-oferta/fogo_de_oferta_landing/sitemap.xml
